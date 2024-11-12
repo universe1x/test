@@ -1,71 +1,59 @@
 import asyncio
-import logging
-import secrets
-from datetime import timedelta
-from django.utils import timezone
 from aiogram import Bot, Dispatcher, types
-from aiogram.filters import Command
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from django.conf import settings
-from . import models
+from aiogram.fsm.state import State, StatesGroup
+from aiogram.types import Message
+from aiogram.filters.command import Command
+from aiogram.fsm.context import FSMContext
+import models
 
-# Настройка логирования
-logging.basicConfig(level=logging.INFO)
 
-# Инициализация бота
+class RegistrationState(StatesGroup):
+    tg_id = State()
+    waiting_for_password = State()
+    waiting_for_password_confirmation = State()
+
+
 bot = Bot(token="7922423364:AAHSa1aIL9DJgQ5UzgeLfSppV2mt29ub4sE")
-dp = Dispatcher()
+dp = Dispatcher(bot)
 
-# Создаем клавиатуру с кнопкой "Запустить"
-def get_start_keyboard():
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text="Запустить", callback_data="generate_link")]
-        ]
-    )
-    return keyboard
-
-# Обработчик команды /start
 @dp.message(Command("start"))
-async def cmd_start(message: types.Message):
-    await message.answer(
-        "Добро пожаловать! Нажмите кнопку 'Запустить' для генерации ссылки регистрации.",
-        reply_markup=get_start_keyboard()
-    )
+async def process_start_command(message: Message, state: FSMContext):
+    await RegistrationState.tg_id.set()
+    await state.update_data(tg_id=message.from_user.id)
+    await message.reply("Привет! Я бот для регистрации в SkillSett. Пожалуйста, придумайте пароль:")
+    await RegistrationState.waiting_for_password.set()
 
-# Обработчик нажатия кнопки
-@dp.callback_query(lambda c: c.data == "generate_link")
-async def process_generate_link(callback_query: types.CallbackQuery):
-    # Генерируем уникальный токен
-    token = secrets.token_urlsafe(32)
-    
-    # Создаем запись в базе данных
-    models.TelegramAuthToken.objects.create(
-        token=token,
-        telegram_id=callback_query.from_user.id,
-        expires_at=timezone.now() + timedelta(minutes=30)  # Токен действителен 30 минут
-    )
-    
-    # Формируем ссылку для возврата на сайт
-    auth_url = f"{settings.SITE_URL}/telegram-auth/{token}/"
-    
-    await callback_query.message.answer(
-        f"Ваша ссылка для регистрации:\n{auth_url}\n\n"
-        "Перейдите по ней для завершения регистрации.\n"
-        "Ссылка действительна в течение 30 минут."
-    )
-    await callback_query.answer()
 
-# Функция запуска бота
-async def start_bot():
+@dp.message(RegistrationState.waiting_for_password)
+async def process_password_sent(message: Message, state: FSMContext):
+    await state.update_data(password=message.text)
+    await message.reply("Пароль принят! Пожалуйста, подтвердите его:")
+    await RegistrationState.waiting_for_password_confirmation.set()
+
+
+@dp.message(RegistrationState.waiting_for_password_confirmation)
+async def process_password_confirmation(message: Message, state: FSMContext):
+    await state.update_data(password_confirmation=message.text)
+    data = await state.get_data()
+
+    if message.text != data["password"]:
+        await message.reply("Пароли не совпадают! Пожалуйста, попробуйте снова.")
+        await state.clear()
     try:
-        await dp.start_polling(bot)
-    finally:
-        await bot.session.close()
+        user = models.TelegramUser.objects.create(
+            telegram_id=data["tg_id"],
+            password=data["password"]
+        )
+        await message.reply("Регистрация завершена! Перейдите на сайт и авторизуйтесь.")
+        await state.clear()
+    except Exception as e:
+        await message.reply(f"Произошла ошибка при регистрации: {e}")
+        await state.clear()
 
-# Функция для запуска бота в отдельном потоке
-def run_bot():
-    asyncio.run(start_bot())
 
-if __name__ == '__main__':
-    run_bot()
+
+def main():
+    dp.start_polling(bot)
+
+if __name__ == "__main__":
+    main()
