@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'resume',
     'groups',
+    'landing',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resume.context_processor.resume_context',
             ],
         },
     },
@@ -82,6 +84,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+LOGIN_URL = '/register/login'
+LOGIN_REDIRECT_URL = '/groups'
 
 
 # Password validation

@@ -1,0 +1,53 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-4 mb-4">Добро пожаловать в SkillSett</h1>
+            <p class="lead mb-5">Платформа для развития ваших навыков и достижения новых высот</p>
+            
+            <div class="d-grid gap-3 col-md-6 mx-auto">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-sign-in-alt me-2"></i>Войти
+                </a>
+                <a href="https://t.me/testregistrationskillsettbot" class="btn btn-outline-primary btn-lg">
+                    <i class="fab fa-telegram me-2"></i>Зарегистрироваться через Telegram
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Преимущества сервиса -->
+    <div class="row mt-5 pt-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+                    <h3>Быстрый старт</h3>
+                    <p>Начните обучение прямо сейчас с помощью Telegram</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h3>Сообщество</h3>
+                    <p>Присоединяйтесь к единомышленникам</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                    <h3>Развитие</h3>
+                    <p>Отслеживайте свой прогресс и достижения</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

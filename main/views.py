@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from .forms import TelegramLoginForm
 from django.contrib import messages
 
-def reg(request):
-    return render(request, 'main/reg.html')
 
 def login(request):
     if request.method == 'POST':
@@ -21,11 +19,10 @@ def login(request):
             # Добавляем сообщение об успешном входе
             messages.success(request, 'Вы успешно вошли в систему')
             
-            return redirect('home')  # или куда вам нужно после успешного входа
+            return redirect('group_list')  # или куда вам нужно после успешного входа
     else:
         form = TelegramLoginForm()
     
     return render(request, 'main/login.html', {'form': form})
 
-def home(request):
-    return render(request, 'main/home.html')
+   

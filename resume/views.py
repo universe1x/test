@@ -4,8 +4,9 @@ import json
 from django.contrib import messages
 from main.models import TelegramUser
 from .models import Resume, Ability
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def create_resume(request):
     if request.method == 'POST':
         form = ResumeForm(request.POST)
@@ -45,3 +46,14 @@ def create_resume(request):
         'form': form,
         'ability_form': ability_form
     })
+
+@login_required
+def resume_detail(request, pk):
+    try:
+        telegram_id = request.session.get('telegram_id')
+        telegram_user = TelegramUser.objects.get(telegram_id=telegram_id)
+        resume = Resume.objects.get(pk=pk, telegram_user=telegram_user)
+        return render(request, 'resume/resume_detail.html', {'resume': resume})
+    except (Resume.DoesNotExist, TelegramUser.DoesNotExist):
+        messages.error(request, 'Резюме не найдено')
+        return redirect('create_resume')

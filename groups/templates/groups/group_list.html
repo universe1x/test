@@ -1,0 +1,67 @@
+{% extends 'main/layout2.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="mb-3">Группы</h2>
+            <a href="{% url 'create_group' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Создать группу
+            </a>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for group in groups %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ group.name }}</h5>
+                    <p class="card-text">{{ group.description }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{{ group.link }}" class="btn btn-outline-primary" target="_blank">
+                        <i class="fab fa-telegram"></i> Присоединиться
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle"></i> Пока нет созданных групп. Будьте первым!
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .card-title {
+        color: #2c3e50;
+        font-weight: 600;
+    }
+
+    .card-text {
+        color: #666;
+        font-size: 0.95rem;
+    }
+
+    .btn-outline-primary {
+        border-radius: 20px;
+    }
+
+    .btn-outline-primary:hover {
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %} 
