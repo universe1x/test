@@ -1,0 +1,108 @@
+{% extends 'main/layout2.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Редактирование группы</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-4">
+                    <label for="name" class="form-label">Название группы</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="name" 
+                           name="name" 
+                           value="{{ group.name }}" 
+                           required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="description" class="form-label">Описание группы</label>
+                    <textarea class="form-control" 
+                              id="description" 
+                              name="description" 
+                              rows="4" 
+                              required>{{ group.description }}</textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label for="skills" class="form-label">Требуемые навыки</label>
+                    <textarea class="form-control" 
+                              id="skills" 
+                              name="skills" 
+                              rows="2">{{ group.skills }}</textarea>
+                    <div class="form-text text-muted">
+                        Укажите навыки через запятую, например: Python, JavaScript, SQL
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="link" class="form-label">Ссылка на Telegram группу</label>
+                    <input type="url" 
+                           class="form-control" 
+                           id="link" 
+                           name="link" 
+                           value="{{ group.link }}" 
+                           required>
+                    <div class="form-text text-muted">
+                        Укажите полную ссылку на вашу группу в Telegram
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'group_detail' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Назад
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Сохранить изменения
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
+    
+    .form-control {
+        border-radius: 10px;
+        padding: 0.75rem;
+    }
+    
+    .form-control:focus {
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.15);
+        border-color: #80bdff;
+    }
+    
+    .btn {
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    .form-label {
+        font-weight: 500;
+        color: #2c3e50;
+    }
+    
+    .text-muted {
+        font-size: 0.875rem;
+    }
+</style>
+{% endblock %}

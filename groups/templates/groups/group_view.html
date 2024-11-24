@@ -1,0 +1,114 @@
+{% extends 'main/layout2.html' %}
+{% load group_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">{{ group.name }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Описание группы -->
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">Описание группы:</h5>
+                        <p class="lead">{{ group.description }}</p>
+                    </div>
+
+                    {% if group.skills %}
+                    <div class="mb-4">
+                        <h5 class="text-muted mb-3">Требуемые навыки:</h5>
+                        <div class="skills-tags">
+                            {% for skill in group.skills|split:"," %}
+                            <span class="badge bg-light text-dark me-2 mb-2">{{ skill|strip }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Информация о группе -->
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fab fa-telegram fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5 class="mb-1">Telegram группа</h5>
+                                <p class="text-muted mb-0">Присоединяйтесь к нашему сообществу</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Кнопки действий -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{{ group.link }}" class="btn btn-outline-primary btn-lg" target="_blank">
+                            <i class="fab fa-telegram me-2"></i>Перейти в группу
+                        </a>
+                        
+                        <form method="POST" action="{% url 'create_application'%}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Откликнуться
+                            </button>
+                        </form>
+                    </div>
+
+                    {% if error %}
+                    <div class="alert alert-warning mt-3" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка возврата -->
+    <div class="text-center mt-4">
+        <a href="{% url 'group_list' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Вернуться к списку групп
+        </a>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
+    
+    .btn {
+        border-radius: 20px;
+        padding: 0.75rem 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .btn:hover:not(.disabled) {
+        transform: translateY(-2px);
+    }
+    
+    .btn-lg {
+        font-size: 1.1rem;
+    }
+    
+    .lead {
+        font-size: 1.1rem;
+        color: #2c3e50;
+    }
+    
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.35em 0.65em;
+        border-radius: 10px;
+    }
+    
+    .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+</style>
+{% endblock %}

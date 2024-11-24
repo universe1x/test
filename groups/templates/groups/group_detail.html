@@ -1,0 +1,86 @@
+{% extends 'main/layout2.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Моя группа</h2>
+            <a href="{% url 'edit_group'%}" class="btn btn-light">
+                <i class="fas fa-edit me-2"></i>Редактировать
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="mb-3">{{ group.name }}</h3>
+                    <div class="mb-4">
+                        <h5 class="text-muted">Описание:</h5>
+                        <p>{{ group.description }}</p>
+                    </div>
+                    {% if group.skills %}
+                    <div class="mb-4">
+                        <h5 class="text-muted">Требуемые навыки:</h5>
+                        <div class="skills-tags">
+                            {{group.skills}}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="mb-4">
+                        <h5 class="text-muted">Ссылка на группу:</h5>
+                        <a href="{{ group.link }}" class="btn btn-outline-primary" target="_blank">
+                            <i class="fab fa-telegram me-2"></i>Перейти в Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-secondary w-100 py-4 disabled mt-4" style="cursor: not-allowed;">
+        <i class="fas fa-plus-circle me-2"></i>
+        <span class="h5 mb-0">Добавить вакансию</span>
+    </button>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+    
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+    }
+    
+    .btn-light {
+        border-radius: 20px;
+    }
+    
+    .btn-outline-primary {
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-primary:hover {
+        transform: translateY(-2px);
+    }
+
+    .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .badge {
+        font-weight: 500;
+        padding: 0.5em 1em;
+        border-radius: 15px;
+        background-color: #f8f9fa !important;
+        border: 1px solid #dee2e6;
+        font-size: 0.9rem;
+    }
+
+    .badge:hover {
+        background-color: #e9ecef !important;
+    }
+</style>
+{% endblock %}

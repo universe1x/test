@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'resume',
     'groups',
     'landing',
+    'applications',
 ]
 
 MIDDLEWARE = [

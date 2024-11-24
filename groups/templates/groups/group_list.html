@@ -14,11 +14,19 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">{{ group.name }}</h5>
-                    <p class="card-text">{{ group.description }}</p>
+                    <p class="card-text mb-3">{{ group.description }}</p>
+                    {% if group.skills %}
+                    <div class="skills-container mb-3">
+                        <h6 class="text-muted mb-2">Требуемые навыки:</h6>
+                        <div class="skills-tags">
+                            {{ group.skills }}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="card-footer bg-transparent border-top-0">
-                    <a href="{{ group.link }}" class="btn btn-outline-primary" target="_blank">
-                        <i class="fab fa-telegram"></i> Присоединиться
+                    <a href="{% url 'group_view' group.pk %}" class="btn btn-outline-primary">
+                        Просмотр
                     </a>
                 </div>
             </div>
@@ -59,6 +67,19 @@
 
     .btn-outline-primary:hover {
         transform: scale(1.05);
+    }
+
+    .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .badge {
+        font-weight: 500;
+        padding: 0.5em 1em;
+        border-radius: 15px;
+        background-color: #f8f9fa !important;
+        border: 1px solid #dee2e6;
     }
 </style>
 {% endblock %}
