@@ -26,7 +26,7 @@ class RegistrationState(StatesGroup):
     waiting_for_password_confirmation = State()
 
 
-bot = Bot(token="7767804272:AAHfPfupvu5zLBA4QIRonT_1tw-VKj35Oak")
+bot = Bot(token="7785795639:AAEbTYYiOiODoxqHplWDf-jBXnZvC-OWbmk")
 dp = Dispatcher()
 
 @dp.message(Command("start"))

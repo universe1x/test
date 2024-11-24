@@ -1,0 +1,149 @@
+{% extends 'main/layout2.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Редактирование резюме</h2>
+        </div>
+        <div class="card-body">
+            <form method="POST" id="resumeForm">
+                {% csrf_token %}
+                
+                <!-- Основная информация -->
+                <div class="mb-4">
+                    <h4 class="border-bottom pb-2">Основная информация</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="surname" class="form-label">Фамилия</label>
+                            <input type="text" class="form-control" id="surname" name="surname" value="{{ resume.surname }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="city" class="form-label">Город</label>
+                            <input type="text" class="form-control" id="city" name="city" value="{{ resume.city }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ resume.email }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ resume.phone }}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- О себе -->
+                <div class="mb-4">
+                    <h4 class="border-bottom pb-2">О себе</h4>
+                    <textarea class="form-control" id="about" name="about" rows="4">{{ resume.about }}</textarea>
+                </div>
+
+                <!-- Навыки -->
+                <div class="mb-4">
+                    <h4 class="border-bottom pb-2">Навыки</h4>
+                    <div id="abilities-container">
+                        {% for ability in abilities %}
+                        <div class="ability-item row mb-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control ability-name" value="{{ ability.name }}" placeholder="Название навыка">
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select ability-level">
+                                    <option value="начальный" {% if ability.level == 'начальный' %}selected{% endif %}>Начальный</option>
+                                    <option value="средний" {% if ability.level == 'средний' %}selected{% endif %}>Средний</option>
+                                    <option value="продвинутый" {% if ability.level == 'продвинутый' %}selected{% endif %}>Продвинутый</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-danger remove-ability">Удалить</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="add-ability">
+                        <i class="fas fa-plus me-2"></i>Добавить навык
+                    </button>
+                    <input type="hidden" name="abilities" id="abilities-data">
+                </div>
+
+                <!-- Дополнительная информация -->
+                <div class="mb-4">
+                    <h4 class="border-bottom pb-2">Дополнительная информация</h4>
+                    <textarea class="form-control" id="additional_info" name="additional_info" rows="4">{{ resume.additional_info }}</textarea>
+                </div>
+
+                <!-- Кнопки -->
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'resume_detail' resume.pk %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Назад
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Сохранить изменения
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript для обработки навыков -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const abilitiesContainer = document.getElementById('abilities-container');
+    const addAbilityBtn = document.getElementById('add-ability');
+    const form = document.getElementById('resumeForm');
+
+    // Добавление нового навыка
+    addAbilityBtn.addEventListener('click', function() {
+        const abilityItem = document.createElement('div');
+        abilityItem.className = 'ability-item row mb-3';
+        abilityItem.innerHTML = `
+            <div class="col-md-6">
+                <input type="text" class="form-control ability-name" placeholder="Название навыка">
+            </div>
+            <div class="col-md-4">
+                <select class="form-select ability-level">
+                    <option value="начальный">Начальный</option>
+                    <option value="средний">Средний</option>
+                    <option value="продвинутый">Продвинутый</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-danger remove-ability">Удалить</button>
+            </div>
+        `;
+        abilitiesContainer.appendChild(abilityItem);
+    });
+
+    // Удаление навыка
+    abilitiesContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-ability')) {
+            e.target.closest('.ability-item').remove();
+        }
+    });
+
+    // Сбор данных перед отправкой формы
+    form.addEventListener('submit', function(e) {
+        const abilities = [];
+        document.querySelectorAll('.ability-item').forEach(item => {
+            const name = item.querySelector('.ability-name').value;
+            const level = item.querySelector('.ability-level').value;
+            if (name) {
+                abilities.push({ ability: name, level: level });
+            }
+        });
+        document.getElementById('abilities-data').value = JSON.stringify(abilities);
+    });
+});
+</script>
+{% endblock %}

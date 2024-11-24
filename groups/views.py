@@ -3,7 +3,7 @@ from .forms import GroupForm
 from .models import Group
 from main.models import TelegramUser
 from django.contrib.auth.decorators import login_required
-
+from django.shortcuts import get_object_or_404
 @login_required
 def create_group(request):
     if request.method == 'POST':
@@ -29,3 +29,8 @@ def create_group(request):
 def group_list(request):
     groups = Group.objects.all()
     return render(request, 'groups/group_list.html', {'groups': groups})
+
+@login_required
+def group_detail(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    return render(request, 'groups/group_detail.html', {'group': group})

@@ -5,9 +5,6 @@
     <div class="row mb-4">
         <div class="col">
             <h2 class="mb-3">Группы</h2>
-            <a href="{% url 'create_group' %}" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Создать группу
-            </a>
         </div>
     </div>
 
@@ -29,7 +26,7 @@
         {% empty %}
         <div class="col-12">
             <div class="alert alert-info" role="alert">
-                <i class="fas fa-info-circle"></i> Пока нет созданных групп. Будьте первым!
+                <i class="fas fa-info-circle"></i> Пока нет созданных групп.
             </div>
         </div>
         {% endfor %}
@@ -64,4 +61,4 @@
         transform: scale(1.05);
     }
 </style>
-{% endblock %} 
+{% endblock %}

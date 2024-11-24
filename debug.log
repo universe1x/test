@@ -1,0 +1,271 @@
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 3021
+"GET /login/ HTTP/1.1" 200 2403
+User logged in - Telegram ID: 736290626
+Session data: dict_items([('_auth_user_id', '2'), ('_auth_user_backend', 'django.contrib.auth.backends.ModelBackend'), ('_auth_user_hash', 'd0a021b3fbd3617bb56bc9a9cc3723bf3ce0a1004b6815ddc631bda889f3fdb4'), ('telegram_id', '736290626'), ('is_authenticated', True)])
+"POST /login/ HTTP/1.1" 302 0
+Internal Server Error: /resume/resume/1/
+Traceback (most recent call last):
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/skillsett/resume/views.py", line 56, in resume_detail
+    return render(request, 'resume/resume_detail.html', {'resume': resume})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_resume' not found. 'edit_resume' is not a valid view function or pattern name.
+"GET /resume/resume/1/ HTTP/1.1" 500 154534
+"GET /login/ HTTP/1.1" 200 2403
+User logged in - Telegram ID: 736290626
+Session data: dict_items([('_auth_user_id', '2'), ('_auth_user_backend', 'django.contrib.auth.backends.ModelBackend'), ('_auth_user_hash', 'd0a021b3fbd3617bb56bc9a9cc3723bf3ce0a1004b6815ddc631bda889f3fdb4'), ('telegram_id', '736290626'), ('is_authenticated', True)])
+"POST /login/ HTTP/1.1" 302 0
+Internal Server Error: /resume/resume/1/
+Traceback (most recent call last):
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 60, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/skillsett/resume/views.py", line 56, in resume_detail
+    return render(request, 'resume/resume_detail.html', {'resume': resume})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'edit_resume' not found. 'edit_resume' is not a valid view function or pattern name.
+"GET /resume/resume/1/ HTTP/1.1" 500 154539
+/Users/sgallyamov/Documents/Programming/skillset practice/skillsett/main/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/sgallyamov/Documents/Programming/skillset practice/skillsett/main/views.py changed, reloading.
+Watching for file changes with StatReloader
+/Users/sgallyamov/Documents/Programming/skillset practice/skillsett/main/views.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /login/ HTTP/1.1" 200 2403
+User logged in - Telegram ID: 736290626
+Session data: dict_items([('_auth_user_id', '2'), ('_auth_user_backend', 'django.contrib.auth.backends.ModelBackend'), ('_auth_user_hash', 'd0a021b3fbd3617bb56bc9a9cc3723bf3ce0a1004b6815ddc631bda889f3fdb4'), ('telegram_id', '736290626'), ('is_authenticated', True)])
+"POST /login/ HTTP/1.1" 302 0
+"GET /groups/ HTTP/1.1" 200 5257
+"GET /static/main/images/logo.png HTTP/1.1" 404 1874
+"GET /static/main/css/style.css HTTP/1.1" 404 1868
+"GET /resume/create/ HTTP/1.1" 200 12195
+"GET /static/main/images/logo.png HTTP/1.1" 404 1874
+"GET /static/main/css/style.css HTTP/1.1" 404 1868
+Watching for file changes with StatReloader
+"GET /admin/resume/resume/ HTTP/1.1" 302 0
+"GET /admin/login/?next=/admin/resume/resume/ HTTP/1.1" 200 4071
+"GET /static/admin/css/login.css HTTP/1.1" 304 0
+"POST /admin/login/?next=/admin/resume/resume/ HTTP/1.1" 302 0
+No telegram_id in session for authenticated user: admin
+"GET /admin/resume/resume/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403
+No telegram_id in session for authenticated user: admin
+"GET /admin/login/?next=/admin/resume/resume/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403
+No telegram_id in session for authenticated user: admin
+"GET /admin/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403
+No telegram_id in session for authenticated user: admin
+"GET /admin/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403
+"GET / HTTP/1.1" 200 3021
+"GET / HTTP/1.1" 200 3021
+No telegram_id in session for authenticated user: admin
+"GET /admin/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403
+No telegram_id in session for authenticated user: admin
+"GET /admin/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 3021
+No telegram_id in session for authenticated user: admin
+"GET /admin/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403
+Internal Server Error: /login/
+Traceback (most recent call last):
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py", line 2123, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'admin'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/skillsett/main/views.py", line 14, in login
+    if form.is_valid():
+       ^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/forms/forms.py", line 197, in is_valid
+    return self.is_bound and not self.errors
+                                 ^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/forms/forms.py", line 192, in errors
+    self.full_clean()
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/forms/forms.py", line 326, in full_clean
+    self._clean_form()
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/forms/forms.py", line 342, in _clean_form
+    cleaned_data = self.clean()
+                   ^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/skillsett/main/forms.py", line 27, in clean
+    user = TelegramUser.objects.get(telegram_id=telegram_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1609, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1641, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1555, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/sql/query.py", line 1385, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/lookups.py", line 369, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/sgallyamov/Documents/Programming/skillset practice/.venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py", line 2125, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'telegram_id' expected a number but got 'admin'.
+"POST /login/ HTTP/1.1" 500 150332
+User logged in - Telegram ID: 736290626
+Session data: dict_items([('_auth_user_id', '2'), ('_auth_user_backend', 'django.contrib.auth.backends.ModelBackend'), ('_auth_user_hash', 'd0a021b3fbd3617bb56bc9a9cc3723bf3ce0a1004b6815ddc631bda889f3fdb4'), ('telegram_id', '736290626'), ('is_authenticated', True)])
+"POST /login/ HTTP/1.1" 302 0
+"GET /groups/ HTTP/1.1" 200 5257
+"GET /static/main/images/logo.png HTTP/1.1" 404 1874
+"GET /static/main/css/style.css HTTP/1.1" 404 1868
+"GET /admin/ HTTP/1.1" 302 0
+"GET /admin/login/?next=/admin/ HTTP/1.1" 200 4744
+"GET /static/admin/img/icon-alert.svg HTTP/1.1" 200 504
+"POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+No telegram_id in session for authenticated user: admin
+"GET /admin/ HTTP/1.1" 302 0
+"GET /login/ HTTP/1.1" 200 2403

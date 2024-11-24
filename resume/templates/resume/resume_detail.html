@@ -14,69 +14,41 @@
             <!-- Основная информация -->
             <div class="row mb-4">
                 <div class="col-md-8">
-                    <h3>{{ resume.full_name }}</h3>
+                    <h3>{{ resume.name }} {{ resume.surname }}</h3>
                     <p class="text-muted">
-                        <i class="fas fa-map-marker-alt me-2"></i>{{ resume.location }}
+                        <i class="fas fa-map-marker-alt me-2"></i>{{ resume.city }}
                     </p>
                     <p class="text-muted">
                         <i class="fas fa-envelope me-2"></i>{{ resume.email }}
                     </p>
-                    {% if resume.phone %}
                     <p class="text-muted">
                         <i class="fas fa-phone me-2"></i>{{ resume.phone }}
                     </p>
-                    {% endif %}
                 </div>
             </div>
 
             <!-- О себе -->
-            {% if resume.about_me %}
             <div class="mb-4">
                 <h4 class="border-bottom pb-2">О себе</h4>
-                <p>{{ resume.about_me }}</p>
+                <p>{{ resume.about|linebreaks }}</p>
             </div>
-            {% endif %}
 
             <!-- Навыки -->
             <div class="mb-4">
                 <h4 class="border-bottom pb-2">Навыки</h4>
                 <div class="row">
-                    {% for ability in resume.ability_set.all %}
-                    <div class="col-md-6 mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ ability.name }}</h5>
-                                <div class="progress">
-                                    {% if ability.level == 'начальный' %}
-                                        <div class="progress-bar" style="width: 33%">Начальный</div>
-                                    {% elif ability.level == 'средний' %}
-                                        <div class="progress-bar" style="width: 66%">Средний</div>
-                                    {% else %}
-                                        <div class="progress-bar" style="width: 100%">Продвинутый</div>
-                                    {% endif %}
-                                </div>
-                            </div>
+                    <div class="col-md-12">
+                        {% for ability in abilities %}
+                        <div class="mb-2">
+                            <span class="fw-bold">{{ ability.name }}</span> - 
+                            <span class="text-muted">{{ ability.level }}</span>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
 
-            <!-- Опыт работы -->
-            {% if resume.experience %}
-            <div class="mb-4">
-                <h4 class="border-bottom pb-2">Опыт работы</h4>
-                <p>{{ resume.experience|linebreaks }}</p>
-            </div>
-            {% endif %}
 
-            <!-- Образование -->
-            {% if resume.education %}
-            <div class="mb-4">
-                <h4 class="border-bottom pb-2">Образование</h4>
-                <p>{{ resume.education|linebreaks }}</p>
-            </div>
-            {% endif %}
         </div>
     </div>
 </div>
