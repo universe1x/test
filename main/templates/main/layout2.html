@@ -13,38 +13,40 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="/">
-                    <img src="{% static 'main/images/logo.png' %}" alt="SkillSett" height="30" class="d-inline-block align-text-top me-2">
-                    SkillSett
-                </a>
+    <!-- Header -->
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'group_list' %}">
+                <img src="{% static 'main/images/logo.png' %}" alt="Skillsett" height="30" class="d-inline-block align-text-top me-2">
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Категории групп
+                        </button>
+                    </div>
+                </div>
                 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'create_resume' %}">
-                                <i class="fas fa-file-alt me-1"></i>Моё резюме
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'group_detail' %}">
-                                <i class="fab fa-telegram me-1"></i>Моя группа
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'application_detail' %}">
-                                <i class="fas fa-bell me-1"></i>Отклики
-                            </a>
-                        </li>
-                    </ul>
+                <div class="navbar-nav">
+                    <a class="nav-link" href="#">
+                        ⭐ The Skillsett Method
+                    </a>
+                </div>
+
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'create_resume' %}">Мое резюме</a>
+                    <a class="nav-link" href="{% url 'application_detail' %}">Отклики</a>
+                    <a class="nav-link" href="{% url 'group_detail' %}">Моя группа</a>
                 </div>
             </div>
+        </div>
         </nav>
     </header>
 

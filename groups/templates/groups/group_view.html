@@ -9,11 +9,25 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
+
+                    {% if group.specialization %}
+                        <div class="col-md-6 mb-3">
+                            <h5 class="text-muted mb-2">Специализация:</h5>
+                            <p class="lead">{{ group.specialization }}</p>
+                        </div>
+                    {% endif %}
                     <!-- Описание группы -->
                     <div class="mb-4">
                         <h5 class="text-muted mb-3">Описание группы:</h5>
                         <p class="lead">{{ group.description }}</p>
                     </div>
+
+                    {% if group.location %}
+                        <div class="col-md-6 mb-3">
+                            <h5 class="text-muted mb-2">Город:</h5>
+                            <p class="lead">{{ group.location }} или любой другой город</p>
+                        </div>
+                    {% endif %}
 
                     {% if group.skills %}
                     <div class="mb-4">

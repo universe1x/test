@@ -13,10 +13,22 @@
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="mb-3">{{ group.name }}</h3>
+                    {% if group.specialization %}
+                        <div class="col-md-6 mb-3">
+                            <h5 class="text-muted">Специализация:</h5>
+                            <p>{{ group.specialization }}</p>
+                        </div>
+                    {% endif %}
                     <div class="mb-4">
                         <h5 class="text-muted">Описание:</h5>
                         <p>{{ group.description }}</p>
                     </div>
+                    {% if group.location %}
+                        <div class="col-md-6 mb-3">
+                            <h5 class="text-muted">Местоположение:</h5>
+                            <p>{{ group.location }} или любой другой город</p>
+                        </div>
+                    {% endif %}
                     {% if group.skills %}
                     <div class="mb-4">
                         <h5 class="text-muted">Требуемые навыки:</h5>

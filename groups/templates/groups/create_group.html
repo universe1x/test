@@ -18,6 +18,14 @@
                                     <div class="alert alert-danger mt-1">{{ form.name.errors }}</div>
                                 {% endif %}
                             </div>
+                            <!-- Специализация -->
+                            <div class="col-12">
+                                <label for="{{ form.specialization.id_for_label }}" class="form-label">{{ form.specialization.label }}</label>
+                                {{ form.specialization }}
+                                {% if form.specialization.errors %}
+                                        <div class="alert alert-danger mt-1">{{ form.specialization.errors }}</div>
+                                {% endif %}
+                            </div>
 
                             <!-- Описание -->
                             <div class="col-12">
@@ -25,6 +33,14 @@
                                 {{ form.description }}
                                 {% if form.description.errors %}
                                     <div class="alert alert-danger mt-1">{{ form.description.errors }}</div>
+                                {% endif %}
+                            </div>  
+                            <!-- Локация -->
+                            <div class="col-12">
+                                <label for="{{ form.location.id_for_label }}" class="form-label">{{ form.location.label }}</label>
+                                {{ form.location }}
+                                {% if form.location.errors %}
+                                    <div class="alert alert-danger mt-1">{{ form.location.errors }}</div>
                                 {% endif %}
                             </div>
 

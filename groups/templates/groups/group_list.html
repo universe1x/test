@@ -2,84 +2,135 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col">
-            <h2 class="mb-3">Группы</h2>
+    <!-- Левая колонка с вопросами -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="questions-sidebar">
+                <div class="question-item mb-3">
+                    <h6>Что за сервис и чем он полезен</h6>
+                    <small class="text-muted">4 минуты</small>
+                </div>
+                <div class="question-item mb-3">
+                    <h6>Как происходит обучение здесь</h6>
+                    <small class="text-muted">13 минут</small>
+                </div>
+                <div class="question-item mb-3">
+                    <h6>Зачем тебе становиться лидером</h6>
+                    <small class="text-muted">6 минут</small>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% for group in groups %}
-        <div class="col">
-            <div class="card h-100">
+        <!-- Правая колонка с группами -->
+        <div class="col-md-8 offset-md-1">
+            <h2 class="mb-3">Вакансии для вас</h2>
+            <p class="text-muted mb-4">Подобраны для резюме "Аналитик данных"</p>
+
+            {% for group in groups %}
+            <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title">{{ group.name }}</h5>
-                    <p class="card-text mb-3">{{ group.description }}</p>
-                    {% if group.skills %}
-                    <div class="skills-container mb-3">
-                        <h6 class="text-muted mb-2">Требуемые навыки:</h6>
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="card-title mb-0">{{ group.specialization }}</h5>
+                        <span class="text-muted">Любой город или {{ group.location }}</span>
+                    </div>
+
+                    <div class="mb-2">
+                        <span class="badge bg-light text-dark me-2">{{ group.name }}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <h6 class="text-muted mb-2">Навыки, которые здесь ценятся:</h6>
                         <div class="skills-tags">
-                            {{ group.skills }}
+                            <span class="badge bg-light text-dark me-2">{{ group.skills }}</span>
                         </div>
                     </div>
-                    {% endif %}
-                </div>
-                <div class="card-footer bg-transparent border-top-0">
-                    <a href="{% url 'group_view' group.pk %}" class="btn btn-outline-primary">
-                        Просмотр
-                    </a>
+
+                    <div>
+                        <a href="{% url 'group_view' group.pk %}" class="btn btn-primary">
+                            Откликнуться
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
+            {% empty %}
             <div class="alert alert-info" role="alert">
-                <i class="fas fa-info-circle"></i> Пока нет созданных групп.
+                <i class="fas fa-info-circle me-2"></i>Пока нет доступных вакансий
             </div>
+            {% endfor %}
+
+            {% if groups %}
+            <div class="d-flex justify-content-center mt-4">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% for i in '12345678910'|make_list %}
+                        <li class="page-item {% if forloop.first %}active{% endif %}">
+                            <a class="page-link" href="#">{{ i }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </div>
+            {% endif %}
         </div>
-        {% endfor %}
     </div>
 </div>
 
 <style>
     .card {
-        transition: transform 0.2s ease-in-out;
+        border-radius: 10px;
+        border: 1px solid #e0e0e0;
     }
     
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    .questions-sidebar {
+        padding: 15px;
     }
-
-    .card-title {
-        color: #2c3e50;
-        font-weight: 600;
+    
+    .question-item {
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
     }
-
-    .card-text {
-        color: #666;
-        font-size: 0.95rem;
+    
+    .question-item:hover {
+        background-color: #f8f9fa;
     }
-
-    .btn-outline-primary {
-        border-radius: 20px;
+    
+    .question-item h6 {
+        margin-bottom: 5px;
+        font-size: 0.9rem;
     }
-
-    .btn-outline-primary:hover {
-        transform: scale(1.05);
-    }
-
-    .skills-tags {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
+    
     .badge {
         font-weight: 500;
         padding: 0.5em 1em;
         border-radius: 15px;
-        background-color: #f8f9fa !important;
-        border: 1px solid #dee2e6;
+    }
+    
+    .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .btn-primary {
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+    }
+    
+    .pagination {
+        gap: 5px;
+    }
+    
+    .page-link {
+        border-radius: 5px;
+        border: none;
+        color: #666;
+    }
+    
+    .page-item.active .page-link {
+        background-color: #007bff;
+        color: white;
     }
 </style>
 {% endblock %}

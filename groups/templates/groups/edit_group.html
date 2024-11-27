@@ -19,6 +19,15 @@
                            value="{{ group.name }}" 
                            required>
                 </div>
+                <div class="mb-4">
+                    <label for="specialization" class="form-label">Специализация</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="specialization" 
+                           name="specialization" 
+                           value="{{ group.specialization }}"
+                           placeholder="Например: Backend разработка">
+                </div>
 
                 <div class="mb-4">
                     <label for="description" class="form-label">Описание группы</label>
@@ -27,6 +36,15 @@
                               name="description" 
                               rows="4" 
                               required>{{ group.description }}</textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="location" class="form-label">Город</label>
+                    <input type="text" 
+                           class="form-control" 
+                           id="location" 
+                           name="location" 
+                           value="{{ group.location }}"
+                           placeholder="Например: Москва">
                 </div>
 
                 <div class="mb-4">
