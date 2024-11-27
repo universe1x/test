@@ -4,12 +4,14 @@ from .models import Group
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
-        fields = ['name', 'description', 'skills', 'link']
+        fields = ['name', 'description', 'skills', 'link', 'specialization', 'location']
         labels = {
             'name': 'Название группы',
             'description': 'Описание',
             'skills': 'Требуемые навыки',
-            'link': 'Ссылка на группу'
+            'link': 'Ссылка на группу',
+            'specialization': 'Специализация',
+            'location': 'Местоположение'
         }
         widgets = {
             'name': forms.TextInput(attrs={
@@ -29,6 +31,14 @@ class GroupForm(forms.ModelForm):
             'link': forms.URLInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'https://t.me/your_group'
+            }),
+            'specialization': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Например: Backend разработка'
+            }),
+            'location': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Например: Москва'
             })
         }
     
