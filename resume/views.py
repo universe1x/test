@@ -90,6 +90,7 @@ def edit_resume(request, pk):
             # Обновляем основные поля резюме
             resume.name = request.POST.get('name')
             resume.surname = request.POST.get('surname')
+            resume.specialization = request.POST.get('specialization')
             resume.city = request.POST.get('city')
             resume.email = request.POST.get('email')
             resume.phone = request.POST.get('phone')

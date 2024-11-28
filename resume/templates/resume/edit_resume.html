@@ -26,9 +26,16 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
+                            <label for="specialization" class="form-label">Специализация</label>
+                            <input type="text" class="form-control" id="specialization" name="specialization" 
+                                   value="{{ resume.specialization }}" placeholder="Например: Frontend разработчик" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label for="city" class="form-label">Город</label>
                             <input type="text" class="form-control" id="city" name="city" value="{{ resume.city }}" required>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="{{ resume.email }}" required>
