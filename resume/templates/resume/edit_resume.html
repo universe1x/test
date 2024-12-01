@@ -2,154 +2,180 @@
 {% load static %}
 
 {% block content %}
-<div class="container py-4">
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">Редактирование резюме</h2>
+<div class="container mt-5" style="max-width: 800px; margin-left: 0;">
+    <h2 class="mb-4">Ты редактируешь резюме</h2>
+    <form method="POST" id="resumeForm" style="max-width: 600px;">
+        {% csrf_token %}
+        
+        <!-- Специализация -->
+        <div class="mb-4">
+            <label for="specialization" class="form-label">Специализация</label>
+            <input type="text" class="form-control" id="specialization" name="specialization" 
+                   value="{{ resume.specialization }}" placeholder="Например: Frontend разработчик" required>
         </div>
-        <div class="card-body">
-            <form method="POST" id="resumeForm">
-                {% csrf_token %}
-                
-                <!-- Основная информация -->
-                <div class="mb-4">
-                    <h4 class="border-bottom pb-2">Основная информация</h4>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label">Имя</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="surname" class="form-label">Фамилия</label>
-                            <input type="text" class="form-control" id="surname" name="surname" value="{{ resume.surname }}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="specialization" class="form-label">Специализация</label>
-                            <input type="text" class="form-control" id="specialization" name="specialization" 
-                                   value="{{ resume.specialization }}" placeholder="Например: Frontend разработчик" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="city" class="form-label">Город</label>
-                            <input type="text" class="form-control" id="city" name="city" value="{{ resume.city }}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ resume.email }}" required>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="phone" class="form-label">Телефон</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" value="{{ resume.phone }}">
-                        </div>
-                    </div>
-                </div>
 
-                <!-- О себе -->
-                <div class="mb-4">
-                    <h4 class="border-bottom pb-2">О себе</h4>
-                    <textarea class="form-control" id="about" name="about" rows="4">{{ resume.about }}</textarea>
+        <!-- Навыки -->
+        <div class="mb-4">
+            <h4>Навыки</h4>
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <input type="text" class="form-control ability-name" placeholder="Название навыка">
                 </div>
-
-                <!-- Навыки -->
-                <div class="mb-4">
-                    <h4 class="border-bottom pb-2">Навыки</h4>
-                    <div id="abilities-container">
-                        {% for ability in abilities %}
-                        <div class="ability-item row mb-3">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control ability-name" value="{{ ability.name }}" placeholder="Название навыка">
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select ability-level">
-                                    <option value="начальный" {% if ability.level == 'начальный' %}selected{% endif %}>Начальный</option>
-                                    <option value="средний" {% if ability.level == 'средний' %}selected{% endif %}>Средний</option>
-                                    <option value="продвинутый" {% if ability.level == 'продвинутый' %}selected{% endif %}>Продвинутый</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-danger remove-ability">Удалить</button>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <button type="button" class="btn btn-secondary" id="add-ability">
-                        <i class="fas fa-plus me-2"></i>Добавить навык
-                    </button>
-                    <input type="hidden" name="abilities" id="abilities-data">
+                <div class="col-md-4">
+                    <select class="form-select ability-level">
+                        <option value="начальный">Начальный</option>
+                        <option value="средний">Средний</option>
+                        <option value="продвинутый">Продвинутый</option>
+                    </select>
                 </div>
-
-                <!-- Дополнительная информация -->
-                <div class="mb-4">
-                    <h4 class="border-bottom pb-2">Дополнительная информация</h4>
-                    <textarea class="form-control" id="additional_info" name="additional_info" rows="4">{{ resume.additional_info }}</textarea>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary w-100" id="add-ability">Добавить</button>
                 </div>
-
-                <!-- Кнопки -->
-                <div class="d-flex justify-content-between">
-                    <a href="{% url 'resume_detail' resume.pk %}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>Назад
-                    </a>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save me-2"></i>Сохранить изменения
-                    </button>
+            </div>
+            <div class="mt-3" id="abilities-container">
+                {% for ability in abilities %}
+                <div class="ability-item badge bg-primary">
+                    {{ ability.name }} ({{ ability.level }})
+                    <button type="button" class="btn-close btn-close-white ms-2 remove-ability" 
+                            data-index="{{ forloop.counter0 }}"
+                            aria-label="Close"></button>
                 </div>
-            </form>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="abilities" id="abilities-data">
         </div>
-    </div>
+
+        <!-- Контактная информация -->
+        <div class="mb-4">
+            <h4>Контактная информация</h4>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Имя</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="surname" class="form-label">Фамилия</label>
+                    <input type="text" class="form-control" id="surname" name="surname" value="{{ resume.surname }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Телефон</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" value="{{ resume.phone }}">
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Почта</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ resume.email }}" required>
+                </div>
+                <div class="col-12">
+                    <label for="city" class="form-label">Город</label>
+                    <input type="text" class="form-control" id="city" name="city" value="{{ resume.city }}" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- О себе -->
+        <div class="mb-4">
+            <label for="about" class="form-label">О себе</label>
+            <textarea class="form-control" id="about" name="about" rows="4">{{ resume.about }}</textarea>
+        </div>
+
+        <!-- Кнопки -->
+        <div class="d-flex gap-2">
+            <button type="button" class="btn btn-secondary" onclick="history.back()">Назад</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
 </div>
 
-<!-- JavaScript для обработки навыков -->
+<style>
+.container {
+    padding-left: 50px;
+}
+.form-control, .form-select {
+    max-width: 100%;
+}
+textarea.form-control {
+    max-width: 100%;
+}
+.ability-item {
+    display: inline-flex !important;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+}
+#abilities-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 600px;
+}
+</style>
+
 <script>
+// Оставляем существующий JavaScript для обработки навыков
 document.addEventListener('DOMContentLoaded', function() {
     const abilitiesContainer = document.getElementById('abilities-container');
     const addAbilityBtn = document.getElementById('add-ability');
     const form = document.getElementById('resumeForm');
+    let abilities = [];
 
-    // Добавление нового навыка
-    addAbilityBtn.addEventListener('click', function() {
-        const abilityItem = document.createElement('div');
-        abilityItem.className = 'ability-item row mb-3';
-        abilityItem.innerHTML = `
-            <div class="col-md-6">
-                <input type="text" class="form-control ability-name" placeholder="Название навыка">
-            </div>
-            <div class="col-md-4">
-                <select class="form-select ability-level">
-                    <option value="начальный">Начальный</option>
-                    <option value="средний">Средний</option>
-                    <option value="продвинутый">Продвинутый</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-danger remove-ability">Удалить</button>
-            </div>
-        `;
-        abilitiesContainer.appendChild(abilityItem);
+    // Инициализация существующих навыков
+    document.querySelectorAll('.ability-item').forEach(item => {
+        const text = item.textContent.trim();
+        const [name, level] = text.split(' (');
+        abilities.push({
+            ability: name,
+            level: level.replace(')', '')
+        });
     });
 
-    // Удаление навыка
-    abilitiesContainer.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-ability')) {
-            e.target.closest('.ability-item').remove();
+    addAbilityBtn.addEventListener('click', function() {
+        const abilityName = document.querySelector('.ability-name').value.trim();
+        const abilityLevel = document.querySelector('.ability-level').value;
+        
+        if (abilityName && !abilities.some(item => item.ability === abilityName)) {
+            abilities.push({
+                ability: abilityName,
+                level: abilityLevel
+            });
+            updateAbilitiesList();
+            document.querySelector('.ability-name').value = '';
+            document.querySelector('.ability-level').value = 'начальный';
         }
     });
 
-    // Сбор данных перед отправкой формы
-    form.addEventListener('submit', function(e) {
-        const abilities = [];
-        document.querySelectorAll('.ability-item').forEach(item => {
-            const name = item.querySelector('.ability-name').value;
-            const level = item.querySelector('.ability-level').value;
-            if (name) {
-                abilities.push({ ability: name, level: level });
-            }
+    function updateAbilitiesList() {
+        abilitiesContainer.innerHTML = '';
+        abilities.forEach((item, index) => {
+            const badge = document.createElement('div');
+            badge.className = 'ability-item badge bg-primary';
+            badge.innerHTML = `
+                ${item.ability} (${item.level})
+                <button type="button" class="btn-close btn-close-white ms-2 remove-ability" 
+                        data-index="${index}"
+                        aria-label="Close"></button>
+            `;
+            abilitiesContainer.appendChild(badge);
         });
         document.getElementById('abilities-data').value = JSON.stringify(abilities);
+    }
+
+    window.removeAbility = function(index) {
+        abilities.splice(index, 1);
+        updateAbilitiesList();
+    };
+
+    form.addEventListener('submit', function() {
+        document.getElementById('abilities-data').value = JSON.stringify(abilities);
+    });
+
+    // Добавляем делегирование событий
+    abilitiesContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-close')) {
+            const index = e.target.dataset.index;
+            removeAbility(index);
+        }
     });
 });
 </script>

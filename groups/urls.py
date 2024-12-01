@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import create_group, group_list, group_detail, edit_group, group_view
+from .views import create_group, group_list, group_detail, edit_group, group_view, delete_group
 
 urlpatterns = [
     path('', group_list, name='group_list'),
@@ -7,5 +7,5 @@ urlpatterns = [
     path('my-group/', group_detail, name='group_detail'),
     path('my-group/edit/', edit_group, name='edit_group'),
     path("<int:pk>", group_view, name='group_view'),
-
+    path('delete/', delete_group, name='delete_group'),
 ]

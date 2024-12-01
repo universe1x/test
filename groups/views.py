@@ -11,7 +11,6 @@ def create_group(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
         
-
         if form.is_valid():
             group = form.save(commit=False)
             telegram_id = request.session.get('telegram_id')
@@ -104,5 +103,12 @@ def edit_group(request):
     except (TelegramUser.DoesNotExist, Group.DoesNotExist):
         return redirect('group_detail')
 
+@login_required
+def delete_group(request):
+    telegram_id = request.session.get('telegram_id')
+    telegram_user = TelegramUser.objects.get(telegram_id=telegram_id)
+    group = Group.objects.get(telegram_user=telegram_user)
+    group.delete()
+    return redirect('group_detail')
 
 

@@ -2,71 +2,58 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">{{ group.name }}</h2>
+    <!-- Заголовок -->
+    <h2 class="display-5 mb-4">{{ group.name }}</h2>
+
+    <div class="content-wrapper">
+        {% if group.specialization %}
+            <div class="mb-4">
+                <h5 class="text-muted mb-2">Специализация:</h5>
+                <p class="lead">{{ group.specialization }}</p>
+            </div>
+        {% endif %}
+
+        <!-- Описание группы -->
+        <div class="mb-4">
+            <h5 class="text-muted mb-2">Описание группы:</h5>
+            <p class="lead">{{ group.description }}</p>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
 
-                    {% if group.specialization %}
-                        <div class="col-md-6 mb-3">
-                            <h5 class="text-muted mb-2">Специализация:</h5>
-                            <p class="lead">{{ group.specialization }}</p>
-                        </div>
-                    {% endif %}
-                    <!-- Описание группы -->
-                    <div class="mb-4">
-                        <h5 class="text-muted mb-3">Описание группы:</h5>
-                        <p class="lead">{{ group.description }}</p>
-                    </div>
+        {% if group.location %}
+            <div class="mb-4">
+                <h5 class="text-muted mb-2">Город:</h5>
+                <p class="lead">{{ group.location }} или любой другой город</p>
+            </div>
+        {% endif %}
 
-                    {% if group.location %}
-                        <div class="col-md-6 mb-3">
-                            <h5 class="text-muted mb-2">Город:</h5>
-                            <p class="lead">{{ group.location }} или любой другой город</p>
-                        </div>
-                    {% endif %}
-
-                    {% if group.skills %}
-                    <div class="mb-4">
-                        <h5 class="text-muted mb-3">Требуемые навыки:</h5>
-                        <div class="skills-tags">
-                            {{group.skills}}
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    <!-- Информация о группе -->
-                    <div class="mb-4">
-                        <div class="d-flex align-items-center mb-3">
-                        </div>
-                    </div>
-
-                    <!-- Кнопки действий -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        
-                        <form method="POST" action="{% url 'create_application' owner_id=group.telegram_user.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <i class="fas fa-paper-plane me-2"></i>Откликнуться
-                            </button>
-                        </form>
-                    </div>
-
-                    {% if error %}
-                    <div class="alert alert-warning mt-3" role="alert">
-                        <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
-                    </div>
-                    {% endif %}
-                </div>
+        {% if group.skills %}
+        <div class="mb-5">
+            <h5 class="text-muted mb-2">Требуемые навыки:</h5>
+            <div class="skills-tags">
+                {{group.skills}}
             </div>
         </div>
+        {% endif %}
+
+        <!-- Кнопки действий -->
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <form method="POST" action="{% url 'create_application' owner_id=group.telegram_user.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-lg">
+                    <i class="fas fa-paper-plane me-2"></i>Откликнуться
+                </button>
+            </form>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-warning mt-3" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
+        </div>
+        {% endif %}
     </div>
 
     <!-- Кнопка возврата -->
-    <div class="text-center mt-4">
+    <div class="mt-4">
         <a href="{% url 'group_list' %}" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Вернуться к списку групп
         </a>
@@ -74,13 +61,9 @@
 </div>
 
 <style>
-    .card {
-        border: none;
-        border-radius: 15px;
-    }
-    
-    .card-header {
-        border-radius: 15px 15px 0 0 !important;
+    .content-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
     }
     
     .btn {
@@ -102,16 +85,14 @@
         color: #2c3e50;
     }
     
-    .badge {
-        font-size: 0.75rem;
-        padding: 0.35em 0.65em;
-        border-radius: 10px;
-    }
-    
     .skills-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+    }
+
+    .text-muted {
+        font-weight: 600;
     }
 </style>
 {% endblock %}
