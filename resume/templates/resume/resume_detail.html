@@ -2,68 +2,81 @@
 {% load static %}
 
 {% block content %}
-<div class="container py-4">
-    <div class="card shadow-sm border">
-        <div class="card-header bg-white text-dark d-flex justify-content-between align-items-center">
-            <h2 class="mb-0">Моё резюме</h2>
-            <a href="{% url 'edit_resume' resume.pk %}" class="btn btn-light border">
-                <i class="fas fa-edit me-2"></i>Редактировать
-            </a>
-        </div>
-        <div class="card-body">
-            <!-- Основная информация -->
-            <div class="row mb-4">
-                <div class="col-md-8">
-                    <h5>{{ resume.name }} {{ resume.surname }}</h5>
-                    <p class="text-muted mb-1">
-                        <i class="fas fa-briefcase me-2"></i>{{ resume.specialization }}
-                    </p>
-                    <p class="text-muted mb-1">
-                        <i class="fas fa-map-marker-alt me-2"></i>{{ resume.city }}
-                    </p>
-                    <p class="text-muted mb-1">
-                        <i class="fas fa-envelope me-2"></i>{{ resume.email }}
-                    </p>
-                    <p class="text-muted mb-1">
-                        <i class="fas fa-phone me-2"></i>{{ resume.phone }}
-                    </p>
-                </div>
-            </div>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>{{ resume.name }} {{ resume.surname }}</h3>
+        <a href="{% url 'edit_resume' resume.pk %}" class="btn btn-light border">
+            <i class="fas fa-pen me-2"></i>Редактировать
+        </a>
+    </div>
 
-            <!-- О себе -->
-            <div class="mb-4">
-                <h4 class="border-bottom pb-2">О себе</h4>
-                <p>{{ resume.about|linebreaks }}</p>
-            </div>
+    <h5 class="mb-4">Специализация — {{ resume.specialization }}</h5>
 
-            <!-- Навыки -->
-            <div class="mb-4">
-                <h4 class="border-bottom pb-2">Навыки</h4>
-                <div class="row">
-                    <div class="col-md-12">
-                        {% for ability in abilities %}
-                        <div class="mb-2">
-                            <span class="fw-bold">{{ ability.name }}</span> - 
-                            <span class="text-muted">{{ ability.level }}</span>
-                        </div>
+    <!-- Контакты -->
+    <div class="mb-5">
+        <h5 class="mb-2">Контакты:</h5>
+        <p class="text-muted mb-1">{{ resume.phone }}</p>
+        <p class="text-muted mb-1">{{ resume.email }}</p>
+        {% if resume.city %}
+            <p class="text-muted mb-1">{{ resume.city }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Навыки -->
+    <div class="mb-5">
+        <h5 class="mb-3">Навыки</h5>
+        <div class="mb-4">
+            
+            {% regroup abilities by level as level_list %}
+            {% for level in level_list %}
+                <div class="mb-4">
+                    <h6 class="text-muted mb-2">{{ level.grouper|title }} уровень</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for ability in level.list %}
+                            <span class="badge bg-light text-dark border">{{ ability.name }}</span>
                         {% endfor %}
                     </div>
                 </div>
-            </div>
-
-
+            {% endfor %}
         </div>
     </div>
+
+    <!-- О себе -->
+    {% if resume.about %}
+    <div class="mb-5">
+        <h5 class="mb-3">Обо мне</h5>
+        <p>{{ resume.about|linebreaks }}</p>
+    </div>
+    {% endif %}
 </div>
-{% endblock %}
 
 <style>
-    .card {
-        border: 1px solid rgba(0,0,0,.125) !important;
-        border-radius: 15px;
-    }
-    
-    .btn-light {
-        background-color: white;
-    }
+h1 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+h6 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.badge {
+    font-weight: normal;
+    padding: 0.5rem 1rem;
+}
+
+.btn-light {
+    background-color: white;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
 </style>
+{% endblock %}

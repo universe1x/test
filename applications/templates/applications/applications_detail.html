@@ -2,145 +2,77 @@
 
 {% block content %}
 <div class="container mt-5">
-    <div class="row mb-4">
-        <div class="col">
-            <h2 class="mb-3">Мои отклики</h2>
-        </div>
-    </div>
+    <h1 class="mb-4">Отклики</h1>
 
-    <div class="row">
-        {% for application in applications %}
-        <div class="col-12 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <h4 class="card-title mb-3">{{ application.group.name }}</h4>
-                            <p class="text-muted mb-3">{{ application.group.description|truncatechars:200 }}</p>
-                            
-                            {% if application.group.skills %}
-                            <div class="skills-container mb-3">
-                                <h6 class="text-muted mb-2">Требуемые навыки:</h6>
-                                <div class="skills-tags">
-                                    <span class="badge bg-light text-dark me-2 mb-2">{{ application.group.skills }}</span>
-                                </div>
-                            </div>
-                            {% endif %}
-                            
-                            <div class="application-info mb-3">
-                                <h6 class="text-muted mb-2">Информация о заявке:</h6>
-                                <div class="d-flex flex-wrap gap-3">
-                                    <div>
-                                        <small class="text-muted d-block">Статус:</small>
-                                        <span class="badge {% if application.status == 'pending' %}bg-warning
-                                                         {% elif application.status == 'accepted' %}bg-success
-                                                         {% elif application.status == 'rejected' %}bg-danger
-                                                         {% endif %}">
-                                            {% if application.status == 'pending' %}На рассмотрении
-                                            {% elif application.status == 'accepted' %}Принято
-                                            {% elif application.status == 'rejected' %}Отклонено
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <small class="text-muted d-block">Дата отправки:</small>
-                                        <span class="text-dark">{{ application.created_at|date:"d.m.Y H:i" }}</span>
-                                    </div>
-                                    {% if application.updated_at %}
-                                    <div>
-                                        <small class="text-muted d-block">Последнее обновление:</small>
-                                        <span class="text-dark">{{ application.updated_at|date:"d.m.Y H:i" }}</span>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            
-                            {% if application.message %}
-                            <div class="message-container mb-3">
-                                <h6 class="text-muted mb-2">Сообщение:</h6>
-                                <p class="mb-0">{{ application.message }}</p>
-                            </div>
-                            {% endif %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Вакансия</th>
+                    <th scope="col">Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                <tr>
+                    <td>
+                        <a href="{% url 'group_view' application.group.id %}" class="vacancy-link text-primary text-decoration-none">
+                            {{ application.group.specialization }}
+                        </a>
+                        <div class="text-muted small">
+                            {{ application.group.name }}
                         </div>
-                        
-                        <div class="d-flex flex-column align-items-end">
-                            <a href="{{ application.group.link }}" class="btn btn-outline-primary mb-2" target="_blank">
-                                <i class="fab fa-telegram me-2"></i>Перейти в группу
-                            </a>
-                            <a href="{% url 'group_view' application.group.id %}" class="btn btn-outline-secondary">
-                                <i class="fas fa-eye me-2"></i>Просмотр группы
-                            </a>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <span class="me-3">Резюме отправлено</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info" role="alert">
-                <i class="fas fa-info-circle me-2"></i>У вас пока нет откликов на группы.
-                <a href="{% url 'group_list' %}" class="alert-link ms-2">Найти группы</a>
-            </div>
-        </div>
-        {% endfor %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center py-4">
+                        У вас пока нет откликов на группы
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
 <style>
-    .card {
-        border: none;
-        border-radius: 15px;
-        transition: transform 0.2s ease-in-out;
-    }
-    
-    .card:hover {
-        transform: translateY(-5px);
-    }
-    
-    .btn {
-        border-radius: 20px;
-        padding: 0.5rem 1rem;
-        transition: all 0.3s ease;
-    }
-    
-    .btn:hover {
-        transform: translateY(-2px);
-    }
-    
-    .skills-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-    
-    .badge {
-        font-weight: 500;
-        padding: 0.5em 1em;
-        border-radius: 10px;
-    }
-    
-    .application-status {
-        margin-top: 1rem;
-    }
-    
-    .alert-link {
-        text-decoration: none;
-    }
-    
-    .alert-link:hover {
-        text-decoration: underline;
-    }
+.table {
+    margin-top: 2rem;
+}
 
-    .application-info {
-        background-color: #f8f9fa;
-        padding: 1rem;
-        border-radius: 10px;
-    }
+.table th {
+    font-weight: 500;
+    color: #6c757d;
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem 0;
+}
 
-    .message-container {
-        background-color: #f8f9fa;
-        padding: 1rem;
-        border-radius: 10px;
-    }
+.table td {
+    padding: 1rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.vacancy-link:hover {
+    text-decoration: underline !important;
+}
+
+.btn-link {
+    color: #6c757d;
+}
+
+.btn-link:hover {
+    color: #000;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 500;
+}
 </style>
 {% endblock %}

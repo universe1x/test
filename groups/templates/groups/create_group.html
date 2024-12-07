@@ -2,115 +2,115 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-5">Создание группы</h1>
-    
-    <h2 class="mb-4">Специализация и должность</h2>
-    
-    <form method="post">
-        {% csrf_token %}
+    <div class="form-container" style="max-width: 800px; margin-left: 0; padding-left: 50px;">
+        <h1 class="mb-4">Ты создаешь группу</h1>
         
-        <!-- Специализация -->
-        <div class="mb-5">
-            <label for="{{ form.specialization.id_for_label }}" class="form-label">Специализация группы</label>
-            {{ form.specialization }}
-            {% if form.specialization.errors %}
-                <div class="alert alert-danger mt-1">{{ form.specialization.errors }}</div>
-            {% endif %}
-        </div>
-
-        <!-- Название группы -->
-        <div class="mb-5">
-            <label for="{{ form.name.id_for_label }}" class="form-label">Название группы</label>
-            {{ form.name }}
-            <div class="form-text">например: Готовимся в такую-то компанию</div>
-            {% if form.name.errors %}
-                <div class="alert alert-danger mt-1">{{ form.name.errors }}</div>
-            {% endif %}
-        </div>
-        <div class="col-12 mb-5">
-            <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
-            {{ form.description }}
-            {% if form.description.errors %}
-                <div class="alert alert-danger mt-1">{{ form.description.errors }}</div>
-            {% endif %}
-        </div> 
-
-        <h2 class="mb-4">Местоположение</h2>
-        <p class="text-muted mb-4">Это не обязательно, но в будущем, если вы захотите встретиться в живую, то рекомендуем указать место проживания, город или местность.</p>
-
-        <!-- Локация -->
-        <div class="mb-5">
-            <label for="{{ form.location.id_for_label }}" class="form-label">Город</label>
-            {{ form.location }}
-            <div class="form-text">Например: Москва</div>
-            {% if form.location.errors %}
-                <div class="alert alert-danger mt-1">{{ form.location.errors }}</div>
-            {% endif %}
-        </div>
-
-        <!-- Навыки -->
-        <div class="col-12 mb-5">
-            <label for="{{ form.skills.id_for_label }}" class="form-label"><h2>Требуемые навыки</h2></label>
-            {{ form.skills }}
-            <div class="form-text">Укажите навыки через запятую, например: Python, JavaScript, SQL</div>
-            {% if form.skills.errors %}
-                <div class="alert alert-danger mt-1">{{ form.skills.errors }}</div>
-            {% endif %}
-        </div>
-
-        <h2 class="mb-4">Создание беседы</h2>
-        <p class="text-muted mb-4">Создайте беседу в телеграмме, затем добавьте туда нашего бота. Бот нужен для отслеживания групповой учебной активности, в будущем, мы планируем сделать дашборд вашей активности, где вы сможете посмотреть то сколько времени вы тратили на учебу навыкам, а так-же при желании взглянуть на драмленные результаты всей группы. Прозрачность затраченного времени на учебу, может поспособствовать более усердной учебе в настоящем и будущем.</p>
-
-        <div class="steps mb-5">
-            <div class="step">
-                <h3>Шаг 1</h3>
-                <p>Создайте беседу в телеграмме и назовите ее так, как назвали группу</p>
-            </div>
+        <h2 class="mb-4">Специализация и должность</h2>
+        
+        <form method="post">
+            {% csrf_token %}
             
-            <div class="step">
-                <h3>Шаг 2</h3>
-                <p>Перейди по <a href="#">ссылке</a> в телеграм бот и добавь его в свою группу, <a href="#">Перейти в бота →</a></p>
+            <!-- Специализация -->
+            <div class="mb-5">
+                <label for="{{ form.specialization.id_for_label }}" class="form-label">Специализация группы</label>
+                {{ form.specialization }}
+                {% if form.specialization.errors %}
+                    <div class="alert alert-danger mt-1">{{ form.specialization.errors }}</div>
+                {% endif %}
             </div>
 
-            <div class="step">
-                <h3>Шаг 3</h3>
-                <p>В созданной беседе, надо дать права администратора телеграмм боту</p>
+            <!-- Название группы -->
+            <div class="mb-5">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Название группы</label>
+                {{ form.name }}
+                <div class="form-text">например: Готовимся в такую-то компанию</div>
+                {% if form.name.errors %}
+                    <div class="alert alert-danger mt-1">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <div class="col-12 mb-5">
+                <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="alert alert-danger mt-1">{{ form.description.errors }}</div>
+                {% endif %}
+            </div> 
+
+            <h2 class="mb-4">Местоположение</h2>
+            <p class="text-muted mb-4">Это не обязательно, но в будущем, если вы захотите встретиться в живую, то рекомендуем указать место проживания, город или местность.</p>
+
+            <!-- Локация -->
+            <div class="mb-5">
+                <label for="{{ form.location.id_for_label }}" class="form-label">Город</label>
+                {{ form.location }}
+                <div class="form-text">Например: Москва</div>
+                {% if form.location.errors %}
+                    <div class="alert alert-danger mt-1">{{ form.location.errors }}</div>
+                {% endif %}
             </div>
 
-            <div class="step">
-                <h3>Шаг 4</h3>
-                <p>Как только все предыдущие шаги будут выполнены, необходимо вернуться на эту страницу и нажать кнопку "Создать группу"</p>
+            <!-- Навыки -->
+            <div class="col-12 mb-5">
+                <label for="{{ form.skills.id_for_label }}" class="form-label"><h2>Требуемые навыки</h2></label>
+                {{ form.skills }}
+                <div class="form-text">Укажите навыки через запятую, например: Python, JavaScript, SQL</div>
+                {% if form.skills.errors %}
+                    <div class="alert alert-danger mt-1">{{ form.skills.errors }}</div>
+                {% endif %}
             </div>
-        </div>
 
-        <!-- Ссылка -->
-        <div class="mb-5">
-            <label for="{{ form.link.id_for_label }}" class="form-label">Ссылка на группу</label>
-            {{ form.link }}
-            <div class="form-text">например: Готовимся в такую-то компанию</div>
-            {% if form.link.errors %}
-                <div class="alert alert-danger mt-1">{{ form.link.errors }}</div>
-            {% endif %}
-        </div>
+            <h2 class="mb-4">Создание беседы</h2>
+            <p class="text-muted mb-4">Создайте беседу в телеграмме, затем добавьте туда нашего бота. Бот нужен для отслеживания групповой учебной активности, в будущем, мы планируем сделать дашборд вашей активности, где вы сможете посмотреть то сколько времени вы тратили на учебу навыкам, а так-же при желании взглянуть на драмленные результаты всей группы. Прозрачность затраченного времени на учебу, может поспособствовать более усердной учебе в настоящем и будущем.</p>
 
-        <div class="col-12 mt-5">
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary" style="width: auto">Создать группу</button>
-                <a href="{% url 'group_detail' %}" class="btn btn-outline-secondary d-flex align-items-center" style="width: auto">Отмена</a>
+            <div class="steps mb-5">
+                <div class="step">
+                    <h3>Шаг 1</h3>
+                    <p>Создайте беседу в телеграмме и назовите ее так, как назвали группу</p>
+                </div>
+                
+                <div class="step">
+                    <h3>Шаг 2</h3>
+                    <p>Перейди по <a href="#">ссылке</a> в тееграм бот и добавь его в свою группу, <a href="#">Перейти в бота →</a></p>
+                </div>
+
+                <div class="step">
+                    <h3>Шаг 3</h3>
+                    <p>В созданной беседе, надо дать права администратора телеграмм боту</p>
+                </div>
+
+                <div class="step">
+                    <h3>Шаг 4</h3>
+                    <p>Как только все предыдущие шаги будут выполнены, необходимо вернуться на эту страницу и нажать кнопку "Создать группу"</p>
+                </div>
             </div>
-        </div>
-    </form>
+
+            <!-- Ссылка -->
+            <div class="mb-5">
+                <label for="{{ form.link.id_for_label }}" class="form-label">Ссылка на группу</label>
+                {{ form.link }}
+                <div class="form-text">например: Готовимся в такую-то компанию</div>
+                {% if form.link.errors %}
+                    <div class="alert alert-danger mt-1">{{ form.link.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="col-12 mt-5">
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary" style="width: auto">Создать группу</button>
+                    <a href="{% url 'group_detail' %}" class="btn btn-outline-secondary d-flex align-items-center" style="width: auto">Отмена</a>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <style>
     h1 {
         font-size: 2rem;
-        font-weight: bold;
     }
     
     h2 {
         font-size: 1.5rem;
-        font-weight: bold;
     }
 
     .steps {
@@ -133,6 +133,22 @@
     .btn-primary {
         padding: 0.75rem 2rem;
         border-radius: 8px;
+    }
+
+    .form-control, .form-select {
+        max-width: 800px;
+    }
+
+    .mb-5 {
+        max-width: 800px;
+    }
+
+    .steps {
+        max-width: 800px;
+    }
+
+    .form-container {
+        padding-left: 50px;
     }
 </style>
 {% endblock %}
